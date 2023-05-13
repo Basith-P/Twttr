@@ -7,9 +7,16 @@ environment:
   sdk: ">=2.19.6 <3.0.0"
 
 dependencies:
+  appwrite: ^9.0.0
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.6
+  flutter_svg: ^2.0.5
+  fpdart: ^0.6.0
+  hooks_riverpod: ^2.3.6
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -18,3 +25,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/svgs/
