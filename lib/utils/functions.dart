@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import 'global.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'global_keys.dart';
 
 void showSnackBar(String message) {
   final snackBar = SnackBar(content: Text(message));
@@ -13,4 +16,9 @@ void popUntil(RoutePredicate predicate) => navigator.popUntil(predicate);
 
 String getNameFromEmail(String email) {
   return email.split('@').first;
+}
+
+Future<List<File>> pickImages() async {
+  final result = await ImagePicker().pickMultiImage();
+  return result.map((e) => File(e.path)).toList();
 }

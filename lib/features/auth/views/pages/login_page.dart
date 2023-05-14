@@ -44,21 +44,26 @@ class LoginPage extends HookConsumerWidget {
                               style: theme.textTheme.titleLarge),
                           gapH8,
                           TextField(
-                              controller: emailController,
-                              decoration: kInputDecoration.copyWith(
-                                  labelText: 'Email')),
+                            controller: emailController,
+                            decoration:
+                                kInputDecoration.copyWith(labelText: 'Email'),
+                            textInputAction: TextInputAction.next,
+                          ),
                           gapH4,
                           TextField(
-                              controller: passwordController,
-                              decoration: kInputDecoration.copyWith(
-                                  labelText: 'Password')),
+                            controller: passwordController,
+                            decoration: kInputDecoration.copyWith(
+                                labelText: 'Password'),
+                            obscureText: true,
+                            textInputAction: TextInputAction.done,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   Align(
                       alignment: Alignment.centerRight,
-                      child: PrimaryBUtton(text: 'Log in', onPressed: login)),
+                      child: PrimaryButton(text: 'Log in', onPressed: login)),
                   gapH10,
                   RichText(
                     text: TextSpan(

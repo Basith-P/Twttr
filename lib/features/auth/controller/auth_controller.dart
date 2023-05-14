@@ -1,4 +1,5 @@
 import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/apis/auth_api.dart';
 import 'package:twttr/apis/user_api.dart';
@@ -20,6 +21,18 @@ final currentAccountProvider = FutureProvider((ref) async {
   return ref.watch(authControllerProvider.notifier).getCurrentAccount();
 });
 
+final userDataProvider =
+    FutureProvider.family<AppUser, String>((ref, uid) async {
+  debugPrint('=======userDataProvider======> UID: $uid <============');
+  return ref.watch(authControllerProvider.notifier).getUserData(uid);
+});
+
+final currentUserDataProvider = FutureProvider((ref) async {
+  final uid = ref.watch(currentAccountProvider).value!.$id;
+  debugPrint('=======currentUserDataProvider======> UID: $uid <============');
+  return ref.watch(userDataProvider(uid)).value;
+});
+
 class AuthController extends StateNotifier<bool> {
   AuthController({required AuthApi authApi, required UserApi userApi})
       : _authApi = authApi,
@@ -36,7 +49,7 @@ class AuthController extends StateNotifier<bool> {
     final res = await _authApi.signUp(email: email, password: password);
     res.fold(
       (l) => showSnackBar(l.message),
-      (r) async {
+      (user) async {
         final appUser = AppUser(
             email: email,
             name: getNameFromEmail(email),
@@ -44,7 +57,7 @@ class AuthController extends StateNotifier<bool> {
             following: const [],
             photoUrl: '',
             bannerUrl: '',
-            uid: '',
+            uid: user.$id,
             bio: '',
             isTwttrBlue: false);
         final res = await _userApi.saveUserData(appUser);
@@ -63,5 +76,12 @@ class AuthController extends StateNotifier<bool> {
     res.fold((l) => showSnackBar(l.message),
         (r) => navigator.pushReplacementNamed(HomePage.routeName));
     state = false;
+  }
+
+  Future<AppUser> getUserData(String uid) async {
+    debugPrint('=======getUserData======> UID: $uid <============');
+    final res = await _userApi.getUserData(uid);
+    debugPrint('=======getUserData======> Res: $res <============');
+    return AppUser.fromMap(res.data);
   }
 }

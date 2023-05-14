@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'utils/global.dart';
+import 'utils/global_keys.dart';
 import 'utils/routes.dart';
 import 'utils/theme/theme.dart';
 

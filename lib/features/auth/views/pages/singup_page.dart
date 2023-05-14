@@ -58,7 +58,7 @@ class SignupPage extends HookConsumerWidget {
                   ),
                   Align(
                       alignment: Alignment.centerRight,
-                      child: PrimaryBUtton(text: 'Sign up', onPressed: signUp)),
+                      child: PrimaryButton(text: 'Sign up', onPressed: signUp)),
                   gapH10,
                   RichText(
                     text: TextSpan(

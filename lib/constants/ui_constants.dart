@@ -23,10 +23,12 @@ class UIConstants {
   // static const kinputDecoration
 }
 
-const kDefaultPadding = EdgeInsets.all(16.0);
+const kDefaultPaddingAmount = 16.0;
+const kDefaultPadding = EdgeInsets.all(kDefaultPaddingAmount);
 const kDefaultButtonPadding =
     EdgeInsets.symmetric(horizontal: 18, vertical: 14);
 const kDefaultBorderRadiusSmall = BorderRadius.all(Radius.circular(6.0));
+const kDefaultBorderRadius = BorderRadius.all(Radius.circular(12.0));
 
 const kInputDecoration = InputDecoration(
   border: OutlineInputBorder(
@@ -49,3 +51,12 @@ const gapH7 = SizedBox(height: 32);
 const gapH8 = SizedBox(height: 40);
 const gapH9 = SizedBox(height: 48);
 const gapH10 = SizedBox(height: 56);
+
+const gapW1 = SizedBox(width: 4);
+const gapW2 = SizedBox(width: 8);
+const gapW3 = SizedBox(width: 12);
+const gapW4 = SizedBox(width: 16);
+const gapW5 = SizedBox(width: 20);
+const gapW6 = SizedBox(width: 24);
+const gapW7 = SizedBox(width: 32);
+const gapW8 = SizedBox(width: 40);

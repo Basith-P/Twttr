@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twttr/constants/constants.dart';
+import 'package:twttr/features/tweet/pages/create_tweet_page.dart';
+import 'package:twttr/utils/functions.dart';
 import 'package:twttr/utils/theme/theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => navigator.pushNamed(CreateTweetPage.routeName),
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: Container(
