@@ -12,22 +12,39 @@ final authApiProvider = Provider((ref) {
   return AuthApi(account: account);
 });
 
-abstract class IAuthApi {
-  FutureEither<User> signUp({required String email, required String password});
-}
+// abstract class IAuthApi {
+//   FutureEither<User> signUp({required String email, required String password});
 
-class AuthApi implements IAuthApi {
+//   FutureEither<Session> login(
+//       {required String email, required String password});
+// }
+
+// class AuthApi implements IAuthApi {
+class AuthApi {
   final Account _account;
 
   AuthApi({required Account account}) : _account = account;
 
-  @override
+  // @override
   FutureEither<User> signUp(
       {required String email, required String password}) async {
     try {
       final user = await _account.create(
           userId: ID.unique(), email: email, password: password);
       return right(user);
+    } on AppwriteException catch (e, st) {
+      return left(Failure(e.message ?? 'Somethine went wrong', st));
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  FutureEither<Session> login(
+      {required String email, required String password}) async {
+    try {
+      final session =
+          await _account.createEmailSession(email: email, password: password);
+      return right(session);
     } on AppwriteException catch (e, st) {
       return left(Failure(e.message ?? 'Somethine went wrong', st));
     } catch (e, st) {
