@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:twttr/common/common.dart';
 import 'package:twttr/constants/constants.dart';
-import 'package:twttr/utils/global_keys.dart';
+import 'package:twttr/utils/global.dart';
 
 import 'singup_page.dart';
 
@@ -58,8 +58,8 @@ class LoginPage extends HookWidget {
                       style: theme.textTheme.bodyLarge
                           ?.copyWith(color: theme.primaryColor),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => navKey.currentState
-                            ?.pushReplacementNamed(SignupPage.routeName),
+                        ..onTap = () => navigator
+                            .pushReplacementNamed(SignupPage.routeName),
                     ),
                   ],
                 ),

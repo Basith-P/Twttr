@@ -14,5 +14,7 @@ class AppTheme {
             const AppBarTheme(backgroundColor: AppColors.backgroundColor),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
             backgroundColor: AppColors.blue),
+        snackBarTheme:
+            const SnackBarThemeData(behavior: SnackBarBehavior.floating),
       );
 }

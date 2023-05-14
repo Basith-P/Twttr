@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'utils/global_keys.dart';
+import 'utils/global.dart';
 import 'utils/routes.dart';
 import 'utils/theme/theme.dart';
 
@@ -16,6 +16,7 @@ class Twttr extends StatelessWidget {
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,
         navigatorKey: navKey,
+        scaffoldMessengerKey: scaffoleMessengerKey,
         debugShowCheckedModeBanner: false,
         onGenerateRoute: Routes.appRoutes,
       ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart' show runApp;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 
 import 'app.dart';
 
 void main() {
-  runApp(const Twttr());
+  runApp(const ProviderScope(child: Twttr()));
 }
