@@ -6,7 +6,6 @@ import 'package:twttr/common/common.dart';
 import 'package:twttr/constants/constants.dart';
 import 'package:twttr/utils/global.dart';
 
-import '../../../../common/loaders.dart';
 import '../../controller/auth_controller.dart';
 import 'singup_page.dart';
 

@@ -7,7 +7,6 @@ import 'package:twttr/features/auth/views/pages/login_page.dart';
 import 'package:twttr/utils/global.dart';
 
 import '../../../../common/common.dart';
-import '../../../../common/loaders.dart';
 import '../../../../constants/ui_constants.dart';
 
 class SignupPage extends HookConsumerWidget {
@@ -24,7 +23,7 @@ class SignupPage extends HookConsumerWidget {
     bool isLoading = ref.watch(authControllerProvider);
 
     void signUp() {
-      final res = ref.read(authControllerProvider.notifier).signUp(
+      ref.read(authControllerProvider.notifier).signUp(
           email: emailController.text, password: passwordController.text);
     }
 

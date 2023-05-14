@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:fpdart/fpdart.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/utils/failure.dart';
@@ -24,6 +25,17 @@ class AuthApi {
   final Account _account;
 
   AuthApi({required Account account}) : _account = account;
+
+  Future<User?> getCurrentAccount() async {
+    try {
+      debugPrint('getCurrentAccount');
+      return await _account.get();
+    } on AppwriteException {
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 
   // @override
   FutureEither<User> signUp(

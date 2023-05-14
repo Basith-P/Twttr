@@ -9,6 +9,8 @@ const primaryLoader = Center(child: CircularProgressIndicator(strokeWidth: 2));
 class LoaderPage extends StatelessWidget {
   const LoaderPage({Key? key}) : super(key: key);
 
+  static const routeName = '/loader';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
