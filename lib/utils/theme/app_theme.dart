@@ -13,8 +13,19 @@ class AppTheme {
         appBarTheme:
             const AppBarTheme(backgroundColor: AppColors.backgroundColor),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-            backgroundColor: AppColors.blue),
+          backgroundColor: AppColors.blue,
+          foregroundColor: AppColors.white,
+          shape: StadiumBorder(),
+          iconSize: 28,
+        ),
         snackBarTheme:
             const SnackBarThemeData(behavior: SnackBarBehavior.floating),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            backgroundColor: AppColors.backgroundColor,
+            selectedItemColor: AppColors.white,
+            unselectedItemColor: AppColors.white,
+            type: BottomNavigationBarType.fixed),
       );
 }

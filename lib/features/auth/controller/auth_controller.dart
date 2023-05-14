@@ -2,7 +2,7 @@ import 'package:appwrite/models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/apis/auth_api.dart';
 import 'package:twttr/apis/user_api.dart';
-import 'package:twttr/features/home/home_page.dart';
+import 'package:twttr/features/feed/pages/home_page.dart';
 import 'package:twttr/models/app_user.dart';
 
 import '../../../utils/functions.dart';

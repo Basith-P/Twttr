@@ -4,7 +4,7 @@ import 'package:twttr/common/common.dart';
 
 import '../features/auth/controller/auth_controller.dart';
 import '../features/auth/views/pages/login_page.dart';
-import '../features/home/home_page.dart';
+import '../features/feed/pages/home_page.dart';
 import '../utils/functions.dart';
 
 class SplashPage extends ConsumerWidget {

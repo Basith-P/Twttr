@@ -4,7 +4,7 @@ import 'package:twttr/common/splash_page.dart';
 
 import '../features/auth/views/pages/login_page.dart';
 import '../features/auth/views/pages/singup_page.dart';
-import '../features/home/home_page.dart';
+import '../features/feed/pages/home_page.dart';
 
 class Routes {
   static Route<dynamic> appRoutes(RouteSettings settings) {
