@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/common/common.dart';
 import 'package:twttr/constants/constants.dart';
-import 'package:twttr/utils/global.dart';
 
+import '../../../../utils/functions.dart';
 import '../../controller/auth_controller.dart';
 import 'singup_page.dart';
 

@@ -4,10 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/features/auth/controller/auth_controller.dart';
 import 'package:twttr/features/auth/views/pages/login_page.dart';
-import 'package:twttr/utils/global.dart';
 
 import '../../../../common/common.dart';
 import '../../../../constants/ui_constants.dart';
+import '../../../../utils/functions.dart';
 
 class SignupPage extends HookConsumerWidget {
   const SignupPage({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:twttr/common/common.dart';
-import 'package:twttr/utils/global.dart';
 
 import '../features/auth/controller/auth_controller.dart';
 import '../features/auth/views/pages/login_page.dart';
 import '../features/home/home_page.dart';
+import '../utils/functions.dart';
 
 class SplashPage extends ConsumerWidget {
   const SplashPage({Key? key}) : super(key: key);
