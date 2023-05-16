@@ -18,6 +18,7 @@ class AppTheme {
           shape: StadiumBorder(),
           iconSize: 28,
         ),
+        dividerTheme: const DividerThemeData(color: AppColors.greyDark),
         snackBarTheme:
             const SnackBarThemeData(behavior: SnackBarBehavior.floating),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(

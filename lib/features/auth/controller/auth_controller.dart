@@ -55,7 +55,8 @@ class AuthController extends StateNotifier<bool> {
             name: getNameFromEmail(email),
             followers: const [],
             following: const [],
-            photoUrl: '',
+            photoUrl:
+                'https://cdn.pixabay.com/photo/2020/06/30/10/23/icon-5355896_640.png',
             bannerUrl: '',
             uid: user.$id,
             bio: '',

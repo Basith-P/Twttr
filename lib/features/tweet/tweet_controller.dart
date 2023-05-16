@@ -15,12 +15,24 @@ final tweetControllerProvider =
   return TweetController(ref);
 });
 
+final getTweetsProvider = FutureProvider((ref) async {
+  return ref.read(tweetControllerProvider.notifier).getTweets();
+});
+
 class TweetController extends StateNotifier<bool> {
   TweetController(this._ref) : super(false);
 
   final Ref _ref;
 
+  Future<List<Tweet>> getTweets() async {
+    debugPrint('=========TweetController=============> getTweets');
+    final tweets = await _ref.read(tweetApiProvider).getTweets();
+    debugPrint(tweets.toString());
+    return tweets.map((e) => Tweet.fromJson(e.data)).toList();
+  }
+
   void shareTweet({required String text, required List<File> images}) async {
+    final now = DateTime.now();
     List<String> imageLinks = [];
     state = true;
     if (images.isNotEmpty) {
@@ -37,15 +49,14 @@ class TweetController extends StateNotifier<bool> {
       hashtags: hashtags,
       uid: _ref.read(currentUserDataProvider).value!.uid,
       tweetType: TweetType.text,
-      tweetedAt: DateTime.now(),
+      tweetedAt: now,
       likedBy: [],
       commentedBy: [],
       resharedCount: 0,
     );
     final res = await _ref.read(tweetApiProvider).shareTweet(tweet);
     state = false;
-    res.fold(
-        (l) => showSnackBar(l.message), (r) => debugPrint(r.data.toString()));
+    res.fold((l) => showSnackBar(l.message), (r) => navigator.pop());
   }
 
   List<String> _getLinkFromText(String text) {

@@ -24,6 +24,7 @@ class CreateTweetPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserDataProvider).value;
     final tweetTextController = useTextEditingController();
+    final mdQry = MediaQuery.of(context);
 
     bool isLoading = ref.watch(tweetControllerProvider);
 
@@ -118,6 +119,7 @@ class CreateTweetPage extends HookConsumerWidget {
               ],
             ),
             bottomNavigationBar: Container(
+              padding: EdgeInsets.only(bottom: mdQry.viewInsets.bottom),
               decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(color: AppColors.greyDark, width: 0.5),

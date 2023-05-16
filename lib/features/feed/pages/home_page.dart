@@ -5,6 +5,8 @@ import 'package:twttr/features/tweet/pages/create_tweet_page.dart';
 import 'package:twttr/utils/functions.dart';
 import 'package:twttr/utils/theme/theme.dart';
 
+import '../../tweet/widgets/tweets_list.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -28,14 +30,14 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: _currentIndex,
         children: const [
-          Center(child: Text('Home Page')),
+          TweetsList(),
           Center(child: Text('Explore Page')),
           Center(child: Text('Notifications Page')),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => navigator.pushNamed(CreateTweetPage.routeName),
-        child: const Icon(Icons.add),
+        child: SvgPicture.asset(AssetsConstants.newTweetIcon),
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage> {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(AssetsConstants.searchIcon),
+              activeIcon: SvgPicture.asset(AssetsConstants.searchActiveIcon),
               label: 'Explore',
             ),
             BottomNavigationBarItem(
