@@ -17,3 +17,6 @@ final appwriteDbProvider =
 
 final appwriteStorageProvider =
     Provider((ref) => Storage(ref.watch(appwriteClientProvider)));
+
+final appwriteRealtimeProvider =
+    Provider((ref) => Realtime(ref.watch(appwriteClientProvider)));

@@ -33,7 +33,7 @@ class TweetCard extends ConsumerWidget {
                       radius: 30,
                       backgroundColor: Colors.transparent,
                       backgroundImage: const CachedNetworkImageProvider(
-                          'https://cdn.pixabay.com/photo/2020/06/30/10/23/icon-5355896_640.png'),
+                          AssetsConstants.defaultProfilePic),
                       foregroundImage:
                           CachedNetworkImageProvider(user.photoUrl),
                     ),
@@ -68,6 +68,7 @@ class TweetCard extends ConsumerWidget {
                             gapH3,
                             AnyLinkPreview(link: tweet.links.first),
                           ],
+                          gapH2,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

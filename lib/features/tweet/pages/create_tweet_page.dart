@@ -72,12 +72,12 @@ class CreateTweetPage extends HookConsumerWidget {
                   padding: kDefaultPadding,
                   child: Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 25,
-                        backgroundImage: CachedNetworkImageProvider(
-                          'https://em-content.zobj.net/source/microsoft-teams/363/person-raising-hand_1f64b.png',
-                        ),
-                        child: Icon(Icons.person),
+                        foregroundImage:
+                            CachedNetworkImageProvider(currentUser.photoUrl),
+                        backgroundImage: const CachedNetworkImageProvider(
+                            AssetsConstants.defaultProfilePic),
                       ),
                       gapW4,
                       Expanded(

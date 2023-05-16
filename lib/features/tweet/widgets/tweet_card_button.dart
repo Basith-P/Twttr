@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:twttr/utils/theme/theme.dart';
 
 class TweetCardButton extends StatelessWidget {
   const TweetCardButton({
@@ -17,7 +18,16 @@ class TweetCardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton.icon(
       onPressed: onPressed,
-      icon: SvgPicture.asset(iconPath),
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        minimumSize: const Size(0, 0),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
+      icon: SvgPicture.asset(
+        iconPath,
+        color: AppColors.grey,
+        height: 18,
+      ),
       label: Text(text),
     );
   }

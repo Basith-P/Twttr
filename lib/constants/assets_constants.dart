@@ -17,4 +17,7 @@ class AssetsConstants {
   static const viewsIcon = '$_svgsPath/views.svg';
   static const verifiedIcon = '$_svgsPath/verified.svg';
   static const newTweetIcon = '$_svgsPath/new_tweet.svg';
+
+  static const defaultProfilePic =
+      'https://cdn.pixabay.com/photo/2020/06/30/10/23/icon-5355896_640.png';
 }
