@@ -7,6 +7,7 @@ import 'package:twttr/features/tweet/models/tweet_model.dart';
 import 'package:twttr/utils/functions.dart';
 
 import '../../apis/tweet_api.dart';
+import '../../models/app_user.dart';
 import '../../utils/enums.dart';
 import '../auth/controller/auth_controller.dart';
 
@@ -61,6 +62,27 @@ class TweetController extends StateNotifier<bool> {
     final res = await _ref.read(tweetApiProvider).shareTweet(tweet);
     state = false;
     res.fold((l) => showSnackBar(l.message), (r) => navigator.pop());
+  }
+
+  void likeTweet(Tweet tweet, AppUser user) async {
+    List<String> likedBy = tweet.likedBy;
+
+    if (tweet.likedBy.contains(user.uid)) {
+      likedBy.remove(user.uid);
+    } else {
+      likedBy = [...likedBy, user.uid];
+    }
+
+    tweet = tweet.copyWith(likedBy: likedBy);
+    final res = await _ref.read(tweetApiProvider).likeTweet(tweet);
+    res.fold((l) => null, (r) {
+      // _notificationController.createNotification(
+      //   text: '${user.name} liked your tweet!',
+      //   postId: tweet.id,
+      //   notificationType: NotificationType.like,
+      //   uid: tweet.uid,
+      // );
+    });
   }
 
   List<String> _getLinkFromText(String text) {
