@@ -20,6 +20,8 @@ Tweet _$TweetFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Tweet {
+  @JsonKey(name: '\$id', includeToJson: false)
+  String? get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   List<String> get images => throw _privateConstructorUsedError;
   List<String> get links => throw _privateConstructorUsedError;
@@ -29,8 +31,8 @@ mixin _$Tweet {
   DateTime get tweetedAt => throw _privateConstructorUsedError;
   List<String> get likedBy => throw _privateConstructorUsedError;
   List<String> get commentedBy => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
   int get resharedCount => throw _privateConstructorUsedError;
+  String? get retweetedBy => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +45,8 @@ abstract class $TweetCopyWith<$Res> {
       _$TweetCopyWithImpl<$Res, Tweet>;
   @useResult
   $Res call(
-      {String text,
+      {@JsonKey(name: '\$id', includeToJson: false) String? id,
+      String text,
       List<String> images,
       List<String> links,
       List<String> hashtags,
@@ -52,8 +55,8 @@ abstract class $TweetCopyWith<$Res> {
       DateTime tweetedAt,
       List<String> likedBy,
       List<String> commentedBy,
-      String id,
-      int resharedCount});
+      int resharedCount,
+      String? retweetedBy});
 }
 
 /// @nodoc
@@ -69,6 +72,7 @@ class _$TweetCopyWithImpl<$Res, $Val extends Tweet>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? text = null,
     Object? images = null,
     Object? links = null,
@@ -78,10 +82,14 @@ class _$TweetCopyWithImpl<$Res, $Val extends Tweet>
     Object? tweetedAt = null,
     Object? likedBy = null,
     Object? commentedBy = null,
-    Object? id = null,
     Object? resharedCount = null,
+    Object? retweetedBy = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -118,14 +126,14 @@ class _$TweetCopyWithImpl<$Res, $Val extends Tweet>
           ? _value.commentedBy
           : commentedBy // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       resharedCount: null == resharedCount
           ? _value.resharedCount
           : resharedCount // ignore: cast_nullable_to_non_nullable
               as int,
+      retweetedBy: freezed == retweetedBy
+          ? _value.retweetedBy
+          : retweetedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -137,7 +145,8 @@ abstract class _$$_TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String text,
+      {@JsonKey(name: '\$id', includeToJson: false) String? id,
+      String text,
       List<String> images,
       List<String> links,
       List<String> hashtags,
@@ -146,8 +155,8 @@ abstract class _$$_TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
       DateTime tweetedAt,
       List<String> likedBy,
       List<String> commentedBy,
-      String id,
-      int resharedCount});
+      int resharedCount,
+      String? retweetedBy});
 }
 
 /// @nodoc
@@ -159,6 +168,7 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? text = null,
     Object? images = null,
     Object? links = null,
@@ -168,10 +178,14 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
     Object? tweetedAt = null,
     Object? likedBy = null,
     Object? commentedBy = null,
-    Object? id = null,
     Object? resharedCount = null,
+    Object? retweetedBy = freezed,
   }) {
     return _then(_$_Tweet(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -208,14 +222,14 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
           ? _value._commentedBy
           : commentedBy // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       resharedCount: null == resharedCount
           ? _value.resharedCount
           : resharedCount // ignore: cast_nullable_to_non_nullable
               as int,
+      retweetedBy: freezed == retweetedBy
+          ? _value.retweetedBy
+          : retweetedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -224,17 +238,18 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
 @JsonSerializable()
 class _$_Tweet implements _Tweet {
   const _$_Tweet(
-      {required this.text,
-      required final List<String> images,
-      required final List<String> links,
-      required final List<String> hashtags,
+      {@JsonKey(name: '\$id', includeToJson: false) this.id,
+      required this.text,
+      final List<String> images = const [],
+      final List<String> links = const [],
+      final List<String> hashtags = const [],
       required this.uid,
       required this.tweetType,
       required this.tweetedAt,
-      required final List<String> likedBy,
-      required final List<String> commentedBy,
-      required this.id,
-      required this.resharedCount})
+      final List<String> likedBy = const [],
+      final List<String> commentedBy = const [],
+      this.resharedCount = 0,
+      this.retweetedBy})
       : _images = images,
         _links = links,
         _hashtags = hashtags,
@@ -245,9 +260,13 @@ class _$_Tweet implements _Tweet {
       _$$_TweetFromJson(json);
 
   @override
+  @JsonKey(name: '\$id', includeToJson: false)
+  final String? id;
+  @override
   final String text;
   final List<String> _images;
   @override
+  @JsonKey()
   List<String> get images {
     if (_images is EqualUnmodifiableListView) return _images;
     // ignore: implicit_dynamic_type
@@ -256,6 +275,7 @@ class _$_Tweet implements _Tweet {
 
   final List<String> _links;
   @override
+  @JsonKey()
   List<String> get links {
     if (_links is EqualUnmodifiableListView) return _links;
     // ignore: implicit_dynamic_type
@@ -264,6 +284,7 @@ class _$_Tweet implements _Tweet {
 
   final List<String> _hashtags;
   @override
+  @JsonKey()
   List<String> get hashtags {
     if (_hashtags is EqualUnmodifiableListView) return _hashtags;
     // ignore: implicit_dynamic_type
@@ -278,6 +299,7 @@ class _$_Tweet implements _Tweet {
   final DateTime tweetedAt;
   final List<String> _likedBy;
   @override
+  @JsonKey()
   List<String> get likedBy {
     if (_likedBy is EqualUnmodifiableListView) return _likedBy;
     // ignore: implicit_dynamic_type
@@ -286,6 +308,7 @@ class _$_Tweet implements _Tweet {
 
   final List<String> _commentedBy;
   @override
+  @JsonKey()
   List<String> get commentedBy {
     if (_commentedBy is EqualUnmodifiableListView) return _commentedBy;
     // ignore: implicit_dynamic_type
@@ -293,13 +316,14 @@ class _$_Tweet implements _Tweet {
   }
 
   @override
-  final String id;
-  @override
+  @JsonKey()
   final int resharedCount;
+  @override
+  final String? retweetedBy;
 
   @override
   String toString() {
-    return 'Tweet(text: $text, images: $images, links: $links, hashtags: $hashtags, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likedBy: $likedBy, commentedBy: $commentedBy, id: $id, resharedCount: $resharedCount)';
+    return 'Tweet(id: $id, text: $text, images: $images, links: $links, hashtags: $hashtags, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likedBy: $likedBy, commentedBy: $commentedBy, resharedCount: $resharedCount, retweetedBy: $retweetedBy)';
   }
 
   @override
@@ -307,6 +331,7 @@ class _$_Tweet implements _Tweet {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Tweet &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality().equals(other._images, _images) &&
             const DeepCollectionEquality().equals(other._links, _links) &&
@@ -319,15 +344,17 @@ class _$_Tweet implements _Tweet {
             const DeepCollectionEquality().equals(other._likedBy, _likedBy) &&
             const DeepCollectionEquality()
                 .equals(other._commentedBy, _commentedBy) &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.resharedCount, resharedCount) ||
-                other.resharedCount == resharedCount));
+                other.resharedCount == resharedCount) &&
+            (identical(other.retweetedBy, retweetedBy) ||
+                other.retweetedBy == retweetedBy));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       text,
       const DeepCollectionEquality().hash(_images),
       const DeepCollectionEquality().hash(_links),
@@ -337,8 +364,8 @@ class _$_Tweet implements _Tweet {
       tweetedAt,
       const DeepCollectionEquality().hash(_likedBy),
       const DeepCollectionEquality().hash(_commentedBy),
-      id,
-      resharedCount);
+      resharedCount,
+      retweetedBy);
 
   @JsonKey(ignore: true)
   @override
@@ -356,20 +383,24 @@ class _$_Tweet implements _Tweet {
 
 abstract class _Tweet implements Tweet {
   const factory _Tweet(
-      {required final String text,
-      required final List<String> images,
-      required final List<String> links,
-      required final List<String> hashtags,
+      {@JsonKey(name: '\$id', includeToJson: false) final String? id,
+      required final String text,
+      final List<String> images,
+      final List<String> links,
+      final List<String> hashtags,
       required final String uid,
       required final TweetType tweetType,
       required final DateTime tweetedAt,
-      required final List<String> likedBy,
-      required final List<String> commentedBy,
-      required final String id,
-      required final int resharedCount}) = _$_Tweet;
+      final List<String> likedBy,
+      final List<String> commentedBy,
+      final int resharedCount,
+      final String? retweetedBy}) = _$_Tweet;
 
   factory _Tweet.fromJson(Map<String, dynamic> json) = _$_Tweet.fromJson;
 
+  @override
+  @JsonKey(name: '\$id', includeToJson: false)
+  String? get id;
   @override
   String get text;
   @override
@@ -389,9 +420,9 @@ abstract class _Tweet implements Tweet {
   @override
   List<String> get commentedBy;
   @override
-  String get id;
-  @override
   int get resharedCount;
+  @override
+  String? get retweetedBy;
   @override
   @JsonKey(ignore: true)
   _$$_TweetCopyWith<_$_Tweet> get copyWith =>

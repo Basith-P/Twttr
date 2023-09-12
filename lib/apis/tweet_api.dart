@@ -18,6 +18,7 @@ abstract class ITweetApi {
   Future<List<Document>> getTweets();
   Stream<RealtimeMessage> getLatestTweet();
   FutureEither<Document> likeTweet(Tweet tweet);
+  FutureEither<Document> updateReshareCount(Tweet tweet);
 }
 
 class TweetApi implements ITweetApi {
@@ -65,8 +66,30 @@ class TweetApi implements ITweetApi {
       final document = await _db.updateDocument(
         databaseId: AppwriteConstants.databaseId,
         collectionId: AppwriteConstants.tweetsCollection,
-        documentId: tweet.id,
+        documentId: tweet.id!,
         data: {'likedBy': tweet.likedBy},
+      );
+      return right(document);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEither<Document> updateReshareCount(Tweet tweet) async {
+    try {
+      final document = await _db.updateDocument(
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.tweetsCollection,
+        documentId: tweet.id!,
+        data: {'resharedCount': tweet.resharedCount},
       );
       return right(document);
     } on AppwriteException catch (e, st) {

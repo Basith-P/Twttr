@@ -48,6 +48,24 @@ class TweetCard extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if (tweet.retweetedBy != null)
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AssetsConstants.retweetIcon,
+                                      color: AppColors.grey,
+                                      height: 16,
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      '${tweet.retweetedBy} retweeted',
+                                      style: const TextStyle(
+                                        color: AppColors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               Row(
                                 children: [
                                   Text(user.name),
@@ -128,7 +146,9 @@ class TweetCard extends ConsumerWidget {
                                     text: tweet.commentedBy.length.toString(),
                                   ),
                                   TweetCardButton(
-                                    onPressed: () {},
+                                    onPressed: () => ref
+                                        .read(tweetControllerProvider.notifier)
+                                        .reshareTweet(tweet, currentUser),
                                     iconPath: AssetsConstants.retweetIcon,
                                     text: tweet.resharedCount.toString(),
                                   ),
