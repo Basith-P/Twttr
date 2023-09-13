@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twttr/common/common.dart';
+import 'package:twttr/features/tweet/models/tweet_model.dart';
+import 'package:twttr/features/tweet/pages/reply_tweet_view.dart';
 
 import '../common/splash_page.dart';
 import '../features/auth/views/pages/login_page.dart';
@@ -28,6 +30,9 @@ class Routes {
       case CreateTweetPage.routeName:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const CreateTweetPage());
+      case TwitterReplyScreen.routeName:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => TwitterReplyScreen(tweet: args as Tweet));
       default:
         return MaterialPageRoute<dynamic>(
             builder: (_) => const Scaffold(body: Center(child: Text('404'))));

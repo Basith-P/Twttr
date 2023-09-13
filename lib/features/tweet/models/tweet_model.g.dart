@@ -33,6 +33,7 @@ _$_Tweet _$$_TweetFromJson(Map<String, dynamic> json) => _$_Tweet(
           const [],
       resharedCount: json['resharedCount'] as int? ?? 0,
       retweetedBy: json['retweetedBy'] as String?,
+      repliedTo: json['repliedTo'] as String?,
     );
 
 Map<String, dynamic> _$$_TweetToJson(_$_Tweet instance) => <String, dynamic>{
@@ -47,6 +48,7 @@ Map<String, dynamic> _$$_TweetToJson(_$_Tweet instance) => <String, dynamic>{
       'commentedBy': instance.commentedBy,
       'resharedCount': instance.resharedCount,
       'retweetedBy': instance.retweetedBy,
+      'repliedTo': instance.repliedTo,
     };
 
 const _$TweetTypeEnumMap = {

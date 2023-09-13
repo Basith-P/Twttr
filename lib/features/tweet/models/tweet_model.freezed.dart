@@ -33,6 +33,7 @@ mixin _$Tweet {
   List<String> get commentedBy => throw _privateConstructorUsedError;
   int get resharedCount => throw _privateConstructorUsedError;
   String? get retweetedBy => throw _privateConstructorUsedError;
+  String? get repliedTo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -56,7 +57,8 @@ abstract class $TweetCopyWith<$Res> {
       List<String> likedBy,
       List<String> commentedBy,
       int resharedCount,
-      String? retweetedBy});
+      String? retweetedBy,
+      String? repliedTo});
 }
 
 /// @nodoc
@@ -84,6 +86,7 @@ class _$TweetCopyWithImpl<$Res, $Val extends Tweet>
     Object? commentedBy = null,
     Object? resharedCount = null,
     Object? retweetedBy = freezed,
+    Object? repliedTo = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -134,6 +137,10 @@ class _$TweetCopyWithImpl<$Res, $Val extends Tweet>
           ? _value.retweetedBy
           : retweetedBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      repliedTo: freezed == repliedTo
+          ? _value.repliedTo
+          : repliedTo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -156,7 +163,8 @@ abstract class _$$_TweetCopyWith<$Res> implements $TweetCopyWith<$Res> {
       List<String> likedBy,
       List<String> commentedBy,
       int resharedCount,
-      String? retweetedBy});
+      String? retweetedBy,
+      String? repliedTo});
 }
 
 /// @nodoc
@@ -180,6 +188,7 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
     Object? commentedBy = null,
     Object? resharedCount = null,
     Object? retweetedBy = freezed,
+    Object? repliedTo = freezed,
   }) {
     return _then(_$_Tweet(
       id: freezed == id
@@ -230,6 +239,10 @@ class __$$_TweetCopyWithImpl<$Res> extends _$TweetCopyWithImpl<$Res, _$_Tweet>
           ? _value.retweetedBy
           : retweetedBy // ignore: cast_nullable_to_non_nullable
               as String?,
+      repliedTo: freezed == repliedTo
+          ? _value.repliedTo
+          : repliedTo // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -249,7 +262,8 @@ class _$_Tweet implements _Tweet {
       final List<String> likedBy = const [],
       final List<String> commentedBy = const [],
       this.resharedCount = 0,
-      this.retweetedBy})
+      this.retweetedBy,
+      this.repliedTo})
       : _images = images,
         _links = links,
         _hashtags = hashtags,
@@ -320,10 +334,12 @@ class _$_Tweet implements _Tweet {
   final int resharedCount;
   @override
   final String? retweetedBy;
+  @override
+  final String? repliedTo;
 
   @override
   String toString() {
-    return 'Tweet(id: $id, text: $text, images: $images, links: $links, hashtags: $hashtags, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likedBy: $likedBy, commentedBy: $commentedBy, resharedCount: $resharedCount, retweetedBy: $retweetedBy)';
+    return 'Tweet(id: $id, text: $text, images: $images, links: $links, hashtags: $hashtags, uid: $uid, tweetType: $tweetType, tweetedAt: $tweetedAt, likedBy: $likedBy, commentedBy: $commentedBy, resharedCount: $resharedCount, retweetedBy: $retweetedBy, repliedTo: $repliedTo)';
   }
 
   @override
@@ -347,7 +363,9 @@ class _$_Tweet implements _Tweet {
             (identical(other.resharedCount, resharedCount) ||
                 other.resharedCount == resharedCount) &&
             (identical(other.retweetedBy, retweetedBy) ||
-                other.retweetedBy == retweetedBy));
+                other.retweetedBy == retweetedBy) &&
+            (identical(other.repliedTo, repliedTo) ||
+                other.repliedTo == repliedTo));
   }
 
   @JsonKey(ignore: true)
@@ -365,7 +383,8 @@ class _$_Tweet implements _Tweet {
       const DeepCollectionEquality().hash(_likedBy),
       const DeepCollectionEquality().hash(_commentedBy),
       resharedCount,
-      retweetedBy);
+      retweetedBy,
+      repliedTo);
 
   @JsonKey(ignore: true)
   @override
@@ -394,7 +413,8 @@ abstract class _Tweet implements Tweet {
       final List<String> likedBy,
       final List<String> commentedBy,
       final int resharedCount,
-      final String? retweetedBy}) = _$_Tweet;
+      final String? retweetedBy,
+      final String? repliedTo}) = _$_Tweet;
 
   factory _Tweet.fromJson(Map<String, dynamic> json) = _$_Tweet.fromJson;
 
@@ -423,6 +443,8 @@ abstract class _Tweet implements Tweet {
   int get resharedCount;
   @override
   String? get retweetedBy;
+  @override
+  String? get repliedTo;
   @override
   @JsonKey(ignore: true)
   _$$_TweetCopyWith<_$_Tweet> get copyWith =>

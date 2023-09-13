@@ -9,7 +9,9 @@ import 'package:twttr/common/common.dart';
 import 'package:twttr/constants/constants.dart';
 import 'package:twttr/features/auth/controller/auth_controller.dart';
 import 'package:twttr/features/tweet/models/tweet_model.dart';
+import 'package:twttr/features/tweet/pages/reply_tweet_view.dart';
 import 'package:twttr/features/tweet/tweet_controller.dart';
+import 'package:twttr/utils/functions.dart';
 import 'package:twttr/utils/theme/app_colors.dart';
 
 import 'hashtag_text.dart';
@@ -27,140 +29,183 @@ class TweetCard extends ConsumerWidget {
     return currentUser == null
         ? const SizedBox.shrink()
         : ref.watch(userDataProvider(tweet.uid)).when(
-              data: (user) => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: const CachedNetworkImageProvider(
-                              AssetsConstants.defaultProfilePic),
-                          foregroundImage:
-                              CachedNetworkImageProvider(user.photoUrl),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (tweet.retweetedBy != null)
+              data: (user) => GestureDetector(
+                onTap: () => navigator.pushNamed(
+                  TwitterReplyScreen.routeName,
+                  arguments: tweet,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: const CachedNetworkImageProvider(
+                                AssetsConstants.defaultProfilePic),
+                            foregroundImage:
+                                CachedNetworkImageProvider(user.photoUrl),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (tweet.retweetedBy != null)
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        AssetsConstants.retweetIcon,
+                                        color: AppColors.grey,
+                                        height: 16,
+                                      ),
+                                      const SizedBox(width: 2),
+                                      Text(
+                                        '${tweet.retweetedBy} retweeted',
+                                        style: const TextStyle(
+                                          color: AppColors.grey,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 Row(
                                   children: [
-                                    SvgPicture.asset(
-                                      AssetsConstants.retweetIcon,
-                                      color: AppColors.grey,
-                                      height: 16,
-                                    ),
-                                    const SizedBox(width: 2),
-                                    Text(
-                                      '${tweet.retweetedBy} retweeted',
-                                      style: const TextStyle(
-                                        color: AppColors.grey,
-                                        fontWeight: FontWeight.w500,
+                                    Text(user.name),
+                                    Flexible(
+                                      child: Text(
+                                        ' @${user.uid}',
+                                        style: const TextStyle(
+                                            color: AppColors.grey),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  ],
-                                ),
-                              Row(
-                                children: [
-                                  Text(user.name),
-                                  Flexible(
-                                    child: Text(
-                                      ' @${user.uid}',
+                                    Text(
+                                      ' • ${timeago.format(tweet.tweetedAt, locale: 'en_short')}',
                                       style: const TextStyle(
                                           color: AppColors.grey),
                                       overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Text(
-                                    ' • ${timeago.format(tweet.tweetedAt, locale: 'en_short')}',
-                                    style:
-                                        const TextStyle(color: AppColors.grey),
-                                    overflow: TextOverflow.ellipsis,
-                                  )
+                                    )
+                                  ],
+                                ),
+                                if (tweet.repliedTo != null)
+                                  ref
+                                      .watch(getTweetByIdProvider(
+                                          tweet.repliedTo!))
+                                      .when(
+                                        data: (repliedToTweet) {
+                                          final replyingToUser = ref
+                                              .watch(
+                                                userDataProvider(
+                                                    repliedToTweet.uid),
+                                              )
+                                              .value;
+                                          return RichText(
+                                            text: TextSpan(
+                                              text: 'Replying to',
+                                              style: const TextStyle(
+                                                color: AppColors.grey,
+                                                fontSize: 16,
+                                              ),
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      ' @${replyingToUser?.name}',
+                                                  style: const TextStyle(
+                                                    color: AppColors.blue,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        error: (error, st) =>
+                                            ErrorPage(error.toString()),
+                                        loading: () => const SizedBox(),
+                                      ),
+                                HashTagText(tweet.text),
+                                if (tweet.images.isNotEmpty) ...[
+                                  gapH3,
+                                  TweetImagesCarousel(tweet.images)
                                 ],
-                              ),
-                              HashTagText(tweet.text),
-                              if (tweet.images.isNotEmpty) ...[
-                                gapH3,
-                                TweetImagesCarousel(tweet.images)
-                              ],
-                              if (tweet.links.isNotEmpty) ...[
-                                gapH3,
-                                AnyLinkPreview(link: tweet.links.first),
-                              ],
-                              gapH2,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TweetCardButton(
-                                    onPressed: () {},
-                                    iconPath: AssetsConstants.viewsIcon,
-                                    text: (tweet.commentedBy.length +
-                                            tweet.resharedCount +
-                                            tweet.likedBy.length)
-                                        .toString(),
-                                  ),
-                                  LikeButton(
-                                    onTap: (isLiked) async {
-                                      ref
+                                if (tweet.links.isNotEmpty) ...[
+                                  gapH3,
+                                  AnyLinkPreview(link: tweet.links.first),
+                                ],
+                                gapH2,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TweetCardButton(
+                                      onPressed: () {},
+                                      iconPath: AssetsConstants.viewsIcon,
+                                      text: (tweet.commentedBy.length +
+                                              tweet.resharedCount +
+                                              tweet.likedBy.length)
+                                          .toString(),
+                                    ),
+                                    LikeButton(
+                                      onTap: (isLiked) async {
+                                        ref
+                                            .read(tweetControllerProvider
+                                                .notifier)
+                                            .likeTweet(tweet, currentUser);
+                                        return !isLiked;
+                                      },
+                                      size: 18,
+                                      isLiked: tweet.likedBy
+                                          .contains(currentUser.uid),
+                                      likeBuilder: (isLiked) => isLiked
+                                          ? SvgPicture.asset(
+                                              AssetsConstants.likeFilledIcon,
+                                              color: AppColors.red,
+                                              height: 18,
+                                            )
+                                          : SvgPicture.asset(
+                                              AssetsConstants.likeOutlinedIcon,
+                                              color: AppColors.grey,
+                                              height: 18,
+                                              width: 18,
+                                            ),
+                                      likeCount: tweet.likedBy.length,
+                                      countBuilder: (count, isLiked, text) {
+                                        return Text(
+                                          count == 0 ? ' 0' : ' $text',
+                                          style: const TextStyle(
+                                            color: AppColors.grey,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    TweetCardButton(
+                                      onPressed: () {},
+                                      iconPath: AssetsConstants.commentIcon,
+                                      text: tweet.commentedBy.length.toString(),
+                                    ),
+                                    TweetCardButton(
+                                      onPressed: () => ref
                                           .read(
                                               tweetControllerProvider.notifier)
-                                          .likeTweet(tweet, currentUser);
-                                      return !isLiked;
-                                    },
-                                    size: 18,
-                                    isLiked:
-                                        tweet.likedBy.contains(currentUser.uid),
-                                    likeBuilder: (isLiked) => isLiked
-                                        ? SvgPicture.asset(
-                                            AssetsConstants.likeFilledIcon,
-                                            color: AppColors.red,
-                                            height: 18,
-                                          )
-                                        : SvgPicture.asset(
-                                            AssetsConstants.likeOutlinedIcon,
-                                            color: AppColors.grey,
-                                            height: 18,
-                                            width: 18,
-                                          ),
-                                    likeCount: tweet.likedBy.length,
-                                    countBuilder: (count, isLiked, text) {
-                                      return Text(
-                                        count == 0 ? ' 0' : ' $text',
-                                        style: const TextStyle(
-                                          color: AppColors.grey,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                  TweetCardButton(
-                                    onPressed: () {},
-                                    iconPath: AssetsConstants.commentIcon,
-                                    text: tweet.commentedBy.length.toString(),
-                                  ),
-                                  TweetCardButton(
-                                    onPressed: () => ref
-                                        .read(tweetControllerProvider.notifier)
-                                        .reshareTweet(tweet, currentUser),
-                                    iconPath: AssetsConstants.retweetIcon,
-                                    text: tweet.resharedCount.toString(),
-                                  ),
-                                ],
-                              )
-                            ],
+                                          .reshareTweet(tweet, currentUser),
+                                      iconPath: AssetsConstants.retweetIcon,
+                                      text: tweet.resharedCount.toString(),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               error: (e, st) {
                 debugPrint(st.toString());

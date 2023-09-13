@@ -19,6 +19,7 @@ class Tweet with _$Tweet {
     @Default([]) List<String> commentedBy,
     @Default(0) int resharedCount,
     String? retweetedBy,
+    String? repliedTo,
   }) = _Tweet;
 
   factory Tweet.fromJson(Map<String, dynamic> json) => _$TweetFromJson(json);

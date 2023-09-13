@@ -25,6 +25,16 @@ final latestTweetProvider = StreamProvider.autoDispose((ref) {
   return ref.watch(tweetApiProvider).getLatestTweet();
 });
 
+final getRepliesToTweetsProvider = FutureProvider.family((ref, Tweet tweet) {
+  final tweetController = ref.watch(tweetControllerProvider.notifier);
+  return tweetController.getRepliesToTweet(tweet);
+});
+
+final getTweetByIdProvider = FutureProvider.family((ref, String id) async {
+  final tweetController = ref.watch(tweetControllerProvider.notifier);
+  return tweetController.getTweetById(id);
+});
+
 class TweetController extends StateNotifier<bool> {
   TweetController(this._ref) : super(false);
 
@@ -37,7 +47,11 @@ class TweetController extends StateNotifier<bool> {
     return tweets.map((e) => Tweet.fromJson(e.data)).toList();
   }
 
-  void shareTweet({required String text, required List<File> images}) async {
+  void shareTweet({
+    required String text,
+    required List<File> images,
+    String? repliedTo,
+  }) async {
     final now = DateTime.now();
     List<String> imageLinks = [];
     state = true;
@@ -59,10 +73,16 @@ class TweetController extends StateNotifier<bool> {
       likedBy: [],
       commentedBy: [],
       resharedCount: 0,
+      repliedTo: repliedTo,
     );
     final res = await _ref.read(tweetApiProvider).shareTweet(tweet);
     state = false;
     res.fold((l) => showSnackBar(l.message), (r) => navigator.pop());
+  }
+
+  Future<Tweet> getTweetById(String id) async {
+    final tweet = await _ref.read(tweetApiProvider).getTweetById(id);
+    return Tweet.fromJson(tweet.data);
   }
 
   void likeTweet(Tweet tweet, AppUser user) async {
@@ -108,6 +128,12 @@ class TweetController extends StateNotifier<bool> {
         (r) => showSnackBar('Retweeted!'),
       );
     });
+  }
+
+  Future<List<Tweet>> getRepliesToTweet(Tweet tweet) async {
+    final documents =
+        await _ref.read(tweetApiProvider).getRepliesToTweet(tweet);
+    return documents.map((tweet) => Tweet.fromJson(tweet.data)).toList();
   }
 
   List<String> _getLinkFromText(String text) {
